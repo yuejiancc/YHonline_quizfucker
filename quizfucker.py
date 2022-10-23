@@ -44,7 +44,7 @@ def get_answer(answer_url):
 
     return answer
 
-answer = get_answer(answer_url).upper
+answer = get_answer(answer_url)
 
 print(answer)
 
