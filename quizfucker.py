@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import ddddocr
-
+import os
 input_question = input("完整的输入问题： ")
 
 # convert input_questions to raw_questions
@@ -11,7 +11,7 @@ def convert_question(input_question):
 
 raw_question = convert_question(input_question)
 
-print(raw_question)
+# print(raw_question)
 
 # search the question on yhxt.liantibao.com
 
@@ -41,11 +41,20 @@ def get_answer(answer_url):
 
     img_bytes = open("answer_pic.png", "rb").read()
     answer = ocr.classification(img_bytes)
+    os.remove('answer_pic.png')
 
     return answer
 
+# format the answer
+def  handle_answer(answer):
+    handled_answer = ''.join([x for x in answer if x.isalpha()]).upper()
+    return handled_answer
+
 answer = get_answer(answer_url)
 
-print(answer)
+handled_answer = handle_answer(answer)
+
+print("正确答案： " + handled_answer)
+
 
 # To be continued…
