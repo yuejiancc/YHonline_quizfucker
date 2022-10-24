@@ -2,14 +2,15 @@ from bs4 import BeautifulSoup
 import requests
 import ddddocr
 import os
-input_question = input("完整的输入问题： ")
 
-# convert input_questions to raw_questions
+print("CTRL + C 结束程序")
+
+# convert input_questions to raw_questionsThe highest award presented during the Festival is undoubtedly the Golden Lion Award.
 def convert_question(input_question):
     raw_question = input_question.replace(" ", "")
     return raw_question
 
-raw_question = convert_question(input_question)
+
 
 # print(raw_question)
 
@@ -24,7 +25,6 @@ def get_answer_url(raw_question):
     answer_url = "https://yhxt.liantibao.com" + handled_tag
     return answer_url
 
-answer_url = get_answer_url(raw_question)
 
 # get the answer
 def get_answer(answer_url):
@@ -50,11 +50,18 @@ def  handle_answer(answer):
     handled_answer = ''.join([x for x in answer if x.isalpha()]).upper()
     return handled_answer
 
-answer = get_answer(answer_url)
+while True:
+    input_question = input("完整的输入问题： ")
+    
+    raw_question = convert_question(input_question)
 
-handled_answer = handle_answer(answer)
+    answer_url = get_answer_url(raw_question)
 
-print("正确答案： " + handled_answer)
+    answer = get_answer(answer_url)
+
+    handled_answer = handle_answer(answer)
+
+    print("正确答案： " + handled_answer)
 
 
 # To be continued…
