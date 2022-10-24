@@ -4,6 +4,7 @@ import ddddocr
 import os
 
 print("本程序用于查询英华学堂期末考试答案")
+
 print("CTRL + C 结束程序")
 
 # convert input_questions to raw_questionsThe highest award presented during the Festival is undoubtedly the Golden Lion Award.
@@ -63,6 +64,8 @@ while True:
     handled_answer = handle_answer(answer)
 
     print("正确答案： " + handled_answer)
+
+
 
 
 # To be continued…
