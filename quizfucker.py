@@ -7,7 +7,7 @@ print("本程序用于查询英华学堂期末考试答案")
 
 print("CTRL + C 结束程序")
 
-# convert input_questions to raw_questionsThe highest award presented during the Festival is undoubtedly the Golden Lion Award.
+# convert input_questions to raw_questions
 def convert_question(input_question):
     raw_question = input_question.replace(" ", "")
     return raw_question
