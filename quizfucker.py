@@ -50,6 +50,10 @@ def get_answer(answer_url):
 # format the answer
 def  handle_answer(answer):
     handled_answer = ''.join([x for x in answer if x.isalpha()]).upper()
+    if 'H' in handled_answer:
+        handled_answer = handled_answer.replace('H', 'A')
+    elif '-' in handled_answer:
+        handled_answer = handled_answer.replace('-', ' ')
     return handled_answer
 
 while True:
