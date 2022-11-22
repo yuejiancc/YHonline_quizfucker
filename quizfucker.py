@@ -22,10 +22,15 @@ def get_answer_url(raw_question):
     url = "http://yhxt.liantibao.com/query.html?kw=" + raw_question
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    tag = str(soup.body.find_all(attrs={"class": "detail-list"}))
-    handled_tag = tag.split("href=")[1].split("\"")[1]
-    answer_url = "https://yhxt.liantibao.com" + handled_tag
-    return answer_url
+    
+    try:
+        tag = str(soup.body.find_all(attrs={"class": "detail-list"}))
+        handled_tag = tag.split("href=")[1].split("\"")[1] 
+    except LookupError:
+        return "未找到答案"
+    else:
+        answer_url = "https://yhxt.liantibao.com" + handled_tag
+        return answer_url
 
 
 # get the answer
@@ -35,7 +40,7 @@ def get_answer(answer_url):
     soup = BeautifulSoup(r.text, "lxml")
     tag = str(soup.body.find_all(attrs={"class": "detail-answer"}))
     answer_pic_url = tag.split("src=")[1].split("\"")[1]
-
+    
     ocr = ddddocr.DdddOcr()
     # pick up the answer using ddddocr
     with open("answer_pic.png", "wb+") as f:
@@ -58,16 +63,20 @@ def  handle_answer(answer):
 
 while True:
     input_question = input("完整的输入问题： ")
-    
+
     raw_question = convert_question(input_question)
 
-    answer_url = get_answer_url(raw_question)
+    try:
+        answer_url = get_answer_url(raw_question)
+        answer = get_answer(answer_url)
 
-    answer = get_answer(answer_url)
+        handled_answer = handle_answer(answer)
 
-    handled_answer = handle_answer(answer)
-
-    print("正确答案： " + handled_answer)
+        print("正确答案： " + handled_answer)
+    except:
+        print("未找到答案，输入下一个问题")
+        continue
+    break
 
 
 
